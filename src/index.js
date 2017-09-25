@@ -16,53 +16,32 @@ module.exports = function zeros(expression) {
     return zeros;
   }
 //
+//
   for (let i = 0; i < arr.length; i++) {
+    let factorial = parseInt(arr[i]);
     if (isFactorial(arr[i])) {
-      let factorial = parseInt(arr[i]);
       for (let factor = 1; factor <= factorial; factor++) {
-        if (factor % 25 == 0) {
-          zeros += 2;
-          continue;
-        }
-        if (factor % 5 == 0) {
-          zeros++;
-        }
-
-        }
+        zeros += getZeros(factor);
+      }
       continue;
     }
-    if (!(isNaN(arr[i].slice(0, -2)))) {
-      let currentFactor = parseInt(arr[i]);
-      for (let k = 1; k <= currentFactor; k++) {
-
-        if ((currentFactor % 2 == 0) && (k % 2 == 0)) {
-          if (k % 25 == 0) {
-            zeros += 2;
-            continue;
-          }
-          if (k % 5 == 0) {
-            zeros++;
-          }
+//
+    if (isDoubleFactorial(arr[i])) {
+      for (let factor = 1; factor <= factorial; factor++) {
+        if ((isDoubleFactorialOdd(factorial)) && (factor % 2 == 0)) {
+          zeros += getZeros(factor);
         }
-
-        if ((currentFactor % 2 == 1) && (k % 2 == 1)) {
-          if (k % 25 == 0) {
-            zeros += 2;
-            continue;
-          }
-          if (k % 5 == 0) {
-            zeros++;
-          }
+//
+        if ((!(isDoubleFactorialOdd(factorial))) && (factor % 2 == 1)) {
+          zeros += getZeros(factor);
         }
       }
-
-
-}
-
+    }
   }
   return zeros;
 }
-
+//
+//
 function isFactorial(str) {
   return (!(isNaN(str.slice(0, -1))));
 }
@@ -77,9 +56,14 @@ function isParseIntToOdd(str) {
 
 function getZeros(number) {
   if (number % 25 == 0) {
-    return +"2";
+    return 2;
   }
   if (number % 5 == 0) {
-    return +"1";
+    return 1;
   }
+  return 0;
+}
+
+function isDoubleFactorialOdd(factorial) {
+  return (factorial % 2 == 0);
 }
